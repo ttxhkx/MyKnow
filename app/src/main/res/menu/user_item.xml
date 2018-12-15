@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/column"
+        android:icon="@drawable/hotnews"
+        android:title="栏目总览"/>
+    <item
+        android:id="@+id/MyCollection"
+        android:icon="@drawable/collect"
+        android:title="我的收藏"/>
+    <item
+        android:id="@+id/Revise"
+        android:icon="@drawable/revise"
+        android:title="信息修改"/>
+    <item
+        android:id="@+id/cancel"
+        android:icon="@drawable/cancel"
+        android:title="注销"/>
+    <item
+        android:id="@+id/exit"
+        android:icon="@drawable/exit"
+        android:title="退出"/>
+
+</menu>
