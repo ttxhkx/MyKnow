@@ -68,7 +68,7 @@ public class ChangeHeadimageActivity extends AppCompatActivity {
         picture = (ImageView)findViewById(R.id.UserImage);
         BtnAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {                    //从相册选择
                 if(ContextCompat.checkSelfPermission(ChangeHeadimageActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
                     ActivityCompat.requestPermissions(ChangeHeadimageActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
                 }
@@ -79,7 +79,7 @@ public class ChangeHeadimageActivity extends AppCompatActivity {
         });
         BtnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {                    //相机拍照
                 File outputImage = new File(getExternalCacheDir(),"output_image.jpg");
                 try {
                     if(outputImage.exists()){
@@ -205,7 +205,7 @@ public class ChangeHeadimageActivity extends AppCompatActivity {
     }
     public byte[] getBitmapByte(Bitmap bitmap){
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,20,out);                                     //压缩图片
+        bitmap.compress(Bitmap.CompressFormat.JPEG,5,out);                                     //压缩图片
         try {
             out.flush();
             out.close();

@@ -22,7 +22,7 @@ public class LongRemarkAdapter extends RecyclerView.Adapter<LongRemarkAdapter.Vi
     private List<LongRemark> mlist;
     private Context mContext;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {                                //修改后为长评和短评共同的Adapter
         ImageView LongReviewImage;
         TextView LongReviewer;
         TextView LongText;
@@ -39,7 +39,7 @@ public class LongRemarkAdapter extends RecyclerView.Adapter<LongRemarkAdapter.Vi
 
         }
     }
-    public LongRemarkAdapter(List<LongRemark>list){this.mlist = list;}
+    public LongRemarkAdapter(List<LongRemark> list){this.mlist = list;}
 
     @NonNull
     @Override

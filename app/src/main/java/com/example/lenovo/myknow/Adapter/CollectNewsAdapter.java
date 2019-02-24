@@ -74,7 +74,7 @@ public class CollectNewsAdapter extends RecyclerView.Adapter<CollectNewsAdapter.
                 String Image = collectNews.getImage();
                 String title = collectNews.getTitle();
                 Intent intent = new Intent(view.getContext(),SpecificNewsActivity.class);
-                intent.putExtra("Id",id);
+                intent.putExtra("news",id);
                 intent.putExtra("ImageUrl",Image);
                 intent.putExtra("columnTitle",title);
                 view.getContext().startActivities(new Intent[] {intent});

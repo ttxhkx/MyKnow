@@ -123,11 +123,11 @@ public class NewsActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toolbarnews,menu);
-        MenuItem item = menu.findItem(R.id.collect);
+        MenuItem item = menu.findItem(R.id.like);
         int op = 0;
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query("theColumn", new String[]{"columnId","Owner"}, null, null, null, null,null);
-        if(cursor.moveToFirst()) {
+        if(cursor.moveToFirst()) {                       //查询是否被收藏
             do {
                 String Owner = cursor.getString(cursor.getColumnIndex("Owner"));
                 String columnid  = cursor.getString(cursor.getColumnIndex("columnId"));
@@ -139,7 +139,9 @@ public class NewsActivity extends AppCompatActivity {
             }
             while(cursor.moveToNext());
         }cursor.close();
-        if(op != 0){ item.setIcon(R.drawable.collect1);}
+        if(op != 0){
+            item.setIcon(R.drawable.collect1);
+        }
         return true;
     }
     @Override

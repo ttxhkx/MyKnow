@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         BtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {                                         //登陆
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 String NameText = EditName.getText().toString();
                 String CodeText = EditCode.getText().toString();
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         BtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {            //转至注册界面
                 Intent intent = new Intent(LoginActivity.this,LogActivity.class);
                 startActivity(intent);
             }

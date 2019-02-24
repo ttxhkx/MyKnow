@@ -45,8 +45,6 @@
         <activity android:name=".Activity.CollectActivity" />
         <activity android:name=".Activity.NewsActivity" />
         <activity android:name=".Activity.SpecificNewsActivity" />
-        <activity android:name=".Activity.ShortRemarkActivity" />
-        <activity android:name=".Activity.NewsCollectActivity"></activity>
     </application>
 
 </manifest>

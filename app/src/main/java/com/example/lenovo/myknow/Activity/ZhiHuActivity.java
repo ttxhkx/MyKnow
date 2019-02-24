@@ -1,6 +1,7 @@
 package com.example.lenovo.myknow.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -9,11 +10,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +48,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.view.View.*;
+
 public class ZhiHuActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefresh;
@@ -74,7 +79,7 @@ public class ZhiHuActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.daohang2);
         }
-        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeHotnews);
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipeHotnews);                   //初始化下拉刷新
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -104,17 +109,31 @@ public class ZhiHuActivity extends AppCompatActivity {
                     intent.putExtra("NAME", username);
                     startActivity(intent);
                 }
-                if (id == R.id.cancel) {                                                              //删除三张表中所有数据
-                    SQLiteDatabase db = dbHelper.getWritableDatabase();
-                    SQLiteDatabase db2 = dbHelper2.getWritableDatabase();
-                    SQLiteDatabase db3 = dbHelper3.getWritableDatabase();
-                    db.delete("Users", "id=?", new String[]{username});
-                    db2.delete("theColumn", "Owner=?", new String[]{username});
-                    db3.delete("theHotNews", "Owner=?", new String[]{username});
-                    Toast.makeText(ZhiHuActivity.this, "注销完成", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ZhiHuActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                if (id == R.id.cancel) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(ZhiHuActivity.this);             //初始化AlertDialog
+                    dialog.setMessage("确定注销？");
+                    dialog.setCancelable(false);
+                    dialog.setPositiveButton("是", new DialogInterface.OnClickListener() {              //按下“是”按钮
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+                            SQLiteDatabase db2 = dbHelper2.getWritableDatabase();
+                            SQLiteDatabase db3 = dbHelper3.getWritableDatabase();
+                            db.delete("Users", "id=?", new String[]{username});          //删除数据库中三张表的数据
+                            db2.delete("theColumn", "Owner=?", new String[]{username});
+                            db3.delete("theHotNews", "Owner=?", new String[]{username});
+                            Toast.makeText(ZhiHuActivity.this, "注销完成", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ZhiHuActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                    dialog.setNegativeButton("否", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    dialog.show();
                 }
                 if (id == R.id.exit) {
                     finish();
@@ -203,7 +222,7 @@ public class ZhiHuActivity extends AppCompatActivity {
             } while (cursor.moveToNext()) ;
          }
         cursor.close();
-        headImage.setOnClickListener(new View.OnClickListener() {
+        headImage.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {                                                                      //头像监听。
                 Intent intent = new Intent(ZhiHuActivity.this,ChangeHeadimageActivity.class);

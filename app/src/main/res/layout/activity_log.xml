@@ -28,7 +28,7 @@
             android:id="@+id/thecode"
             android:inputType="textPassword"
             android:layout_margin="20dp"
-            android:hint="密码"
+            android:hint="8-16位密码"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>

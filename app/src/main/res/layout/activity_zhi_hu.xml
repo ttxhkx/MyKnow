@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/user_drawer_layout">
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="wrap_content"
         android:id="@+id/appbar"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
            <android.support.v7.widget.Toolbar
                android:layout_width="match_parent"
                android:subtitle = "知乎日报"
@@ -31,7 +31,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </android.support.v4.widget.SwipeRefreshLayout>
-        </FrameLayout>
+        </android.support.design.widget.CoordinatorLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/user_inf"
         android:layout_width="match_parent"

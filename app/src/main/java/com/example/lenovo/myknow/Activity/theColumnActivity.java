@@ -1,8 +1,10 @@
 package com.example.lenovo.myknow.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ public class theColumnActivity extends AppCompatActivity {
     private List<theColumn> list = new ArrayList<>();
     private SwipeRefreshLayout swipeRefresh;
     private String name;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,7 +99,8 @@ public class theColumnActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewColumn);           //初始化recycleView
+                    recyclerView = (RecyclerView) findViewById(R.id.recyclerViewColumn);           //初始化recycleView
+
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(theColumnActivity.this);
                     recyclerView.setLayoutManager(linearLayoutManager);
                     list.clear();

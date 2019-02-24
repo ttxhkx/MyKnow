@@ -39,7 +39,7 @@ public class LogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLog);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarLog);                       //初始化Toolbar
         setSupportActionBar(toolbar);
         toolbar.setTitle("知乎日报");
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -61,20 +61,20 @@ public class LogActivity extends AppCompatActivity {
 
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {                                         //注册
                 int op = 0;
                 String Nametext = thename.getText().toString();
                 String Codetext = thecode.getText().toString();
                 String ReCodetext = recode.getText().toString();
                 String Phonetext = phone.getText().toString();
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user);
-                byte[] user = getBitmapByte(bitmap);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.user);         //默认头像视作初始头像
+                byte[] user = getBitmapByte(bitmap);                                                   //转化为二进制
                 Log.e("TAG", String.valueOf(user));
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 boolean code = checkCode(Codetext);
                 if (code) {
-                    if (ReCodetext.equals(Codetext)) {
-                        Cursor cursor;
+                    if (ReCodetext.equals(Codetext)) {                        //确认密码
+                        Cursor cursor;                                        //用户名查重
                         cursor = db.query("Users", new String[]{"id"}, null, null, null, null, null);
                         if (cursor.moveToFirst()) {
                             do {
@@ -89,7 +89,7 @@ public class LogActivity extends AppCompatActivity {
                         boolean name = checkUsername(Nametext);
                         boolean num = checkPhoneNumber(Phonetext);
                         if (name && num && op == 0) {
-                            ContentValues values = new ContentValues();
+                            ContentValues values = new ContentValues();                      //用户信息存入数据库
                             values.put("id", Nametext);
                             values.put("NickName", Nametext);
                             values.put("Code", Codetext);
@@ -98,6 +98,10 @@ public class LogActivity extends AppCompatActivity {
                             db.insert("Users", null, values);
                             values.clear();
                             Toast.makeText(LogActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LogActivity.this,ZhiHuActivity.class);
+                            intent.putExtra("ID",Nametext);
+                            startActivity(intent);
+                            finish();
                         } else {
                             if (op == 0) {
                                 Toast.makeText(LogActivity.this, "请填入正确信息", Toast.LENGTH_SHORT).show();
@@ -119,23 +123,23 @@ public class LogActivity extends AppCompatActivity {
             }
         });
     }
-    public static boolean checkUsername(String username) {
+    public static boolean checkUsername(String username) {           //检验用户名是否合格
         String regex = "([a-zA-Z0-9]{4,12})";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(username);
         return m.matches();
     }
-    public static boolean checkPhoneNumber(String phoneNumber){
+    public static boolean checkPhoneNumber(String phoneNumber){            //检测电话号码
         Pattern pattern=Pattern.compile("^1[0-9]{10}$");
         Matcher matcher=pattern.matcher(phoneNumber);
         return matcher.matches();
     }
-    public static boolean checkCode(String code){
+    public static boolean checkCode(String code){                      //检测密码
         Pattern pattern=Pattern.compile("[\\S]{8,16}$");
         Matcher matcher=pattern.matcher(code);
         return matcher.matches();
     }
-    public byte[] getBitmapByte(Bitmap bitmap){
+    public byte[] getBitmapByte(Bitmap bitmap){                         //转化为二进制
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,out);
         try {

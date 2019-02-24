@@ -117,13 +117,11 @@ public class SpecificNewsActivity extends AppCompatActivity {
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toolbar_specfic_news,menu);
-        MenuItem item = menu.findItem(R.id.collect);
+        MenuItem item = menu.findItem(R.id.Scollect);
         int op = 0;
-        SharedPreferences sps = getSharedPreferences("theUser", Context.MODE_PRIVATE);
-        name = sps.getString("theName","");
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query("theHotNews", new String[]{"newsId","Owner"}, null, null, null, null,null);
-        if(cursor.moveToFirst()) {
+        if(cursor.moveToFirst()) {                            //判断是否被收藏
             do {
                 String Owner = cursor.getString(cursor.getColumnIndex("Owner"));
                 String id=cursor.getString(cursor.getColumnIndex("newsId"));
@@ -162,7 +160,7 @@ public class SpecificNewsActivity extends AppCompatActivity {
                     }
                     while(cursor.moveToNext());
                 }cursor.close();
-                if(op1 == 0) {
+                if(op1 == 0) {                                //写入数据库
                     item.setIcon(R.drawable.collect1);
                     ContentValues values = new ContentValues();
                     values.put("Owner", name);
@@ -170,6 +168,7 @@ public class SpecificNewsActivity extends AppCompatActivity {
                     values.put("newsId", newsId);
                     values.put("ImageUrl", ImagrUrl);
                     db.insert("theHotNews", null, values);
+                    Log.e("TAGGGG","这里是Specific"+ name + title+ newsId + ImagrUrl );
                     values.clear();
                 }
                 else {

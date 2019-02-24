@@ -53,7 +53,7 @@ public class CollectColumnAdapter extends RecyclerView.Adapter<CollectColumnAdap
         final ViewHolder holder = new ViewHolder(view);
         holder.ColumnTitle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {                          //跳转并传值
                 int i = holder.getAdapterPosition();
                 CollectColumn collectColumn = mlist.get(i);
                 String column_id = collectColumn.getID();
@@ -83,7 +83,7 @@ public class CollectColumnAdapter extends RecyclerView.Adapter<CollectColumnAdap
         });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {                                            //从数据库中删除
                 dbHelper = new MyDatabaseHelper(mContext, "theColumn.db", null, 1);
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 int i = holder.getAdapterPosition();
@@ -101,7 +101,7 @@ public class CollectColumnAdapter extends RecyclerView.Adapter<CollectColumnAdap
     @Override
     public void onBindViewHolder(@NonNull CollectColumnAdapter.ViewHolder viewHolder, int i) {
         CollectColumn collectColumn = mlist.get(i);
-        Glide.with(mContext).load(collectColumn.getImage()).into(viewHolder.ColumnImage);
+        Glide.with(mContext).load(collectColumn.getImage()).into(viewHolder.ColumnImage);                //显示图片
         viewHolder.ColumnTitle.setText(collectColumn.getTitle());
     }
 

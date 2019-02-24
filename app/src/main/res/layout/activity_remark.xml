@@ -22,17 +22,19 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
         </android.support.v7.widget.Toolbar>
-
-        <TextView
-            android:id="@+id/lrk"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/remarkTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="长评:0" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/longRemark"
+            android:background="#1ac6fb"
+            app:tabIndicatorColor="#ffffff"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabTextColor="#008fcf">
+        </android.support.design.widget.TabLayout>
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:id="@+id/remarkViewPager">
+        </android.support.v4.view.ViewPager>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -53,11 +53,11 @@ public class HotNewsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sps = getSharedPreferences("theUser", Context.MODE_PRIVATE);
+        SharedPreferences sps = getSharedPreferences("theUser", Context.MODE_PRIVATE);                    //得到用户名
         name = sps.getString("theName","");
         setContentView(R.layout.activity_hot_news);
         dbHelper = new MyDatabaseHelper(this,"theHotNews.db",null,1);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.ToolbarHotnews);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.ToolbarHotnews);                                                      //初始化Toolbar
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,7 +68,7 @@ public class HotNewsActivity extends AppCompatActivity {
             }
         });
         Intent intent = getIntent();
-        final String Url = intent.getStringExtra("thehotnews");
+        final String Url = intent.getStringExtra("thehotnews");                                         //接收消息Id
         newsId = intent.getStringExtra("newsId");
         new Thread(new Runnable() {
             @Override
@@ -134,7 +134,7 @@ public class HotNewsActivity extends AppCompatActivity {
         Cursor cursor = db.query("theHotNews", new String[]{"newsId","Owner"}, null, null, null, null,null);
         if(cursor.moveToFirst()) {
             do {
-                String Owner = cursor.getString(cursor.getColumnIndex("Owner"));
+                String Owner = cursor.getString(cursor.getColumnIndex("Owner"));                     //检验该消息是否被收藏
                 String id=cursor.getString(cursor.getColumnIndex("newsId"));
                 if(name.equals(Owner)) {
                     if (newsId.equals(id)) {
@@ -144,13 +144,13 @@ public class HotNewsActivity extends AppCompatActivity {
             }
             while(cursor.moveToNext());
         }cursor.close();
-        if(op != 0){ item.setIcon(R.drawable.collect1);}
+        if(op != 0){ item.setIcon(R.drawable.collect1);}                              //若收藏置换为收藏图片
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item .getItemId()){
-            case R.id.collect:
+            case R.id.collect:                        //收藏按钮
                 int op1 = 0;
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 Cursor cursor = db.query("theHotNews", new String[]{"newsId","Owner"}, null, null, null, null,null);
@@ -176,6 +176,7 @@ public class HotNewsActivity extends AppCompatActivity {
                     values.put("newsTitle", title);
                     values.put("newsId", newsId);
                     values.put("ImageUrl", ImagrUrl);
+                    Log.e("TAGGGG","这里是HotNewsActivity"+name + newsId+ title + ImagrUrl);
                     db.insert("theHotNews", null, values);
                     values.clear();
                 }
@@ -184,10 +185,10 @@ public class HotNewsActivity extends AppCompatActivity {
                     item.setIcon(R.drawable.collect);
                 }
                 break;
-           case R.id.good:
+           case R.id.good:               //点赞数
                 Toast.makeText(HotNewsActivity.this,popularity,Toast.LENGTH_LONG).show();
                 break;
-            case R.id.remark:
+            case R.id.remark:                 //跳转至评论页面
                 Intent intent1 = new Intent(HotNewsActivity.this,RemarkActivity.class);
                 intent1.putExtra("NewsId",newsId);
                 intent1.putExtra("long",long_comments);
